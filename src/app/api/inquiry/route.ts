@@ -52,11 +52,12 @@ export async function POST(req: Request) {
     }
 
     // Read SMTP config from environment variables
-    const host = process.env.EMAIL_HOST || process.env.SMTP_HOST || "smtp.gmail.com";
+    const host = (process.env.EMAIL_HOST || process.env.SMTP_HOST || "smtp.gmail.com").trim();
     const port = Number(process.env.EMAIL_PORT || process.env.SMTP_PORT || 587);
-    const user = process.env.EMAIL_USER || process.env.SMTP_USER || "";
-    const pass = process.env.EMAIL_PASS || process.env.SMTP_PASS || "";
-    const recipient = process.env.INQUIRY_RECIPIENT_EMAIL || user || "info@amoghsupply.com";
+    const user = (process.env.EMAIL_USER || process.env.SMTP_USER || "").trim();
+    // Clean password: strip all spaces and accidental surrounding quotes
+    const pass = (process.env.EMAIL_PASS || process.env.SMTP_PASS || "").replace(/[\s"']/g, "").trim();
+    const recipient = (process.env.INQUIRY_RECIPIENT_EMAIL || user || "info@amoghsupply.com").trim();
 
     // If email credentials have not been configured in .env yet
     if (!user || !pass) {
@@ -69,23 +70,32 @@ export async function POST(req: Request) {
       });
     }
 
-    // Configure live nodemailer transport
-    const transporter = nodemailer.createTransport({
-      host,
-      port,
-      secure: port === 465, // true for 465, false for 587
-      auth: {
-        user,
-        pass,
-      },
-    });
+    // Configure live nodemailer transport (use native 'gmail' service when Gmail is detected)
+    const isGmail = host.includes("gmail") || user.toLowerCase().endsWith("@gmail.com");
+    const transporter = isGmail
+      ? nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+            user,
+            pass,
+          },
+        })
+      : nodemailer.createTransport({
+          host,
+          port,
+          secure: port === 465,
+          auth: {
+            user,
+            pass,
+          },
+        });
 
     const emailSubject = `🔔 New Mineral Inquiry [${refId}]: ${name} (${quantity || "Bulk"} MT ${mineral || "Mineral"})`;
 
     const emailHtml = `
       <div style="font-family: Arial, sans-serif; max-width: 650px; margin: 0 auto; background-color: #0d1117; color: #f0f6fc; padding: 24px; border-radius: 12px; border: 1px solid #30363d;">
         <div style="border-bottom: 2px solid #f59e0b; padding-bottom: 12px; margin-bottom: 20px;">
-          <h2 style="color: #f59e0b; margin: 0; font-size: 20px;">AMOGH MINERALS & SUPPLY</h2>
+          <h2 style="color: #f59e0b; margin: 0; font-size: 20px;">AMOGH MINERALS &amp; SUPPLY</h2>
           <p style="color: #8b949e; margin: 4px 0 0 0; font-size: 12px;">New Direct Procurement Inquiry Desk</p>
         </div>
 
@@ -172,7 +182,7 @@ export async function POST(req: Request) {
               <p>Your tracking reference is: <strong>${refId}</strong></p>
               <p>Our commercial desk in Himatnagar, Gujarat will review your technical specifications and contact you shortly at <strong>${phone}</strong>.</p>
               <br/>
-              <p style="color: #666; font-size: 12px;">Amogh Supply — Direct-from-Mine Industrial Mineral Procurement & Export<br/>Phone: +91 75665 12966</p>
+              <p style="color: #666; font-size: 12px;">Amogh Supply — Direct-from-Mine Industrial Mineral Procurement &amp; Export<br/>Phone: +91 75665 12966</p>
             </div>
           `,
         });
