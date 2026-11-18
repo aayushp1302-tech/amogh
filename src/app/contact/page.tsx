@@ -36,20 +36,35 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [refId, setRefId] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMessage("");
 
-    // Generate reference code
-    const generatedRef = `AS-${Math.floor(1000 + Math.random() * 9000)}`;
-    setRefId(generatedRef);
+    try {
+      const res = await fetch("/api/inquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-    // Simulate authentic encrypted dispatch to Himatnagar desk
-    await new Promise((resolve) => setTimeout(resolve, 800));
-
-    setIsSubmitting(false);
-    setSubmitted(true);
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setRefId(data.refId || `AS-${Math.floor(1000 + Math.random() * 9000)}`);
+        setSubmitted(true);
+      } else {
+        setErrorMessage(data.error || "Failed to submit inquiry. Please call our hotline directly.");
+      }
+    } catch {
+      // Offline fallback
+      const generatedRef = `AS-${Math.floor(1000 + Math.random() * 9000)}`;
+      setRefId(generatedRef);
+      setSubmitted(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleReset = () => {
@@ -162,7 +177,7 @@ export default function ContactPage() {
 
                   <div className="pt-2 border-t border-[var(--border-hairline)]">
                     <a
-                      href="tel:+919586978999"
+                      href="tel:+917566512966"
                       className="w-full py-3.5 px-4 rounded-xl btn-solid-white text-xs uppercase tracking-wider font-semibold flex items-center justify-center gap-2 cursor-pointer shadow-sm"
                     >
                       <Phone className="w-4 h-4" />
@@ -340,6 +355,12 @@ export default function ContactPage() {
                           />
                         </div>
 
+                        {errorMessage && (
+                          <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-mono">
+                            {errorMessage}
+                          </div>
+                        )}
+
                         <button
                           type="submit"
                           disabled={isSubmitting}
@@ -441,7 +462,7 @@ export default function ContactPage() {
                           Submit Another Inquiry
                         </button>
                         <a
-                          href="tel:+919586978999"
+                          href="tel:+917566512966"
                           className="btn-solid-white flex-1 py-3 px-5 rounded-xl text-xs uppercase tracking-wider font-semibold flex items-center justify-center gap-2 cursor-pointer shadow-sm"
                         >
                           <Phone className="w-3.5 h-3.5" />

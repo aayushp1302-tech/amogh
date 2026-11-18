@@ -58,11 +58,11 @@ export default function Navbar() {
 
           <div className="flex items-center gap-6">
             <a 
-              href="tel:+919586978999" 
+              href="tel:+917566512966" 
               className="flex items-center gap-1.5 hover:text-[var(--text-pure)] transition-colors"
             >
               <Phone className="w-3.5 h-3.5 opacity-70" />
-              <span className="font-mono text-[var(--text-primary)] font-medium">+91 95869 78999</span>
+              <span className="font-mono text-[var(--text-primary)] font-medium">+91 75665 12966</span>
             </a>
             <a 
               href="mailto:info@amoghsupply.com" 
@@ -223,7 +223,7 @@ export default function Navbar() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Phone className="w-4 h-4 text-[var(--text-secondary)]" />
-                  <span>+91 95869 78999</span>
+                  <span>+91 75665 12966</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Mail className="w-4 h-4 text-[var(--text-secondary)]" />
@@ -233,7 +233,7 @@ export default function Navbar() {
 
               <div className="grid grid-cols-2 gap-3 pt-2">
                 <a
-                  href="tel:+919586978999"
+                  href="tel:+917566512966"
                   className="flex items-center justify-center gap-2 py-3 rounded-xl bg-[var(--bg-surface-elevated)] text-[var(--text-pure)] font-medium text-sm border border-[var(--border-hairline)] cursor-pointer"
                 >
                   <Phone className="w-4 h-4" />

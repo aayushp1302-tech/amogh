@@ -43,7 +43,7 @@ export default function MineralVault({ onSelectForCalculator }: MineralVaultProp
     }
   };
 
-  const whatsappSampleUrl = `https://wa.me/919586978999?text=${encodeURIComponent(
+  const whatsappSampleUrl = `https://wa.me/917566512966?text=${encodeURIComponent(
     `Hello Amogh Supply, I would like to request an official physical laboratory sample kit for ${currentMineral.name} (${currentMineral.formula}) in ${activeMeshSize.toUpperCase()} grade.`
   )}`;
 

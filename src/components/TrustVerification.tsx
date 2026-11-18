@@ -114,7 +114,7 @@ export default function TrustVerification() {
             </Link>
 
             <a
-              href="tel:+919586978999"
+              href="tel:+917566512966"
               className="btn-outline-white w-full sm:w-auto px-6 py-3.5 rounded-xl text-xs uppercase tracking-wider font-medium text-center transition-colors cursor-pointer"
             >
               Call Procurement Desk

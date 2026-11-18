@@ -45,7 +45,7 @@ export default function MobileBottomBar() {
     {
       id: "call",
       label: "Call Desk",
-      href: "tel:+919586978999",
+      href: "tel:+917566512966",
       icon: Phone,
       isExternal: true,
       isActive: false,

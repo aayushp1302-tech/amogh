@@ -71,7 +71,7 @@ export default function RfqCalculator({ initialProductId }: RfqCalculatorProps) 
 
 Please confirm current spot price per MT and latest Certificate of Analysis (COA).`;
 
-  const whatsappLink = `https://wa.me/919586978999?text=${encodeURIComponent(rfqSummaryText)}`;
+  const whatsappLink = `https://wa.me/917566512966?text=${encodeURIComponent(rfqSummaryText)}`;
   const mailtoLink = `mailto:info@amoghsupply.com?subject=${encodeURIComponent(
     `Formal RFQ: ${quantityMt} MT ${currentMineral.name}`
   )}&body=${encodeURIComponent(rfqSummaryText)}`;

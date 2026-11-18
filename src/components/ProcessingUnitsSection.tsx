@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { 
   Factory, 
   Cpu, 
@@ -24,15 +25,14 @@ export default function ProcessingUnitsSection() {
     { property: "Fe₂O₃ (Ferric Oxide)", q1: "0.01% max", q2: "0.04% (± 0.02)", highlight: true },
   ];
 
-  const feldsparSpecs = [
-    { formula: "SiO₂ (Silicon Dioxide)", range: "65.00 – 68.00%" },
-    { formula: "Al₂O₃ (Alumina)", range: "18.00 – 20.00%" },
-    { formula: "Fe₂O₃ (Ferric Oxide)", range: "0.15% max (Ultra-Low Iron)", highlight: true },
-    { formula: "TiO₂ (Titanium Dioxide)", range: "0.10 – 0.15%" },
-    { formula: "Na₂O (Sodium Oxide)", range: "9.00 – 11.00% (High Flux)", highlight: true },
-    { formula: "K₂O (Potassium Oxide)", range: "1.00% max" },
-    { formula: "CaO (Calcium Oxide)", range: "1.00% max" },
-    { formula: "Whiteness (L* Value)", range: "78% min (Pristine White)", highlight: true },
+  const feldsparDualSpecs = [
+    { formula: "SiO₂ (Silicon Dioxide)", soda: "65.00 – 68.00%", potash: "64.00 – 67.00%" },
+    { formula: "Al₂O₃ (Alumina)", soda: "18.00 – 20.00%", potash: "17.50 – 19.50%" },
+    { formula: "Na₂O (Sodium Oxide)", soda: "9.50 – 11.50%", potash: "1.50 – 3.00%", highlightSoda: true },
+    { formula: "K₂O (Potassium Oxide)", soda: "0.50 – 1.50%", potash: "11.50 – 13.50%", highlightPotash: true },
+    { formula: "Fe₂O₃ (Ferric Oxide)", soda: "< 0.12% (Ultra-Low)", potash: "< 0.08% (Insulator Grade)", highlight: true },
+    { formula: "TiO₂ (Titanium Dioxide)", soda: "0.10 – 0.15%", potash: "0.05 – 0.10%" },
+    { formula: "Whiteness (L* Value)", soda: "≥ 78% (Pristine)", potash: "≥ 82% (Optically Pure)", highlight: true },
   ];
 
   return (
@@ -51,18 +51,21 @@ export default function ProcessingUnitsSection() {
           </h2>
 
           <p className="text-[var(--text-secondary)] text-base sm:text-lg leading-relaxed">
-            Our state-of-the-art Himatnagar milling facilities house high-capacity continuous ball mills, magnetic air classifiers, and optical sorters engineered for customized sizing and ultra-pure mineral specifications.
+            Our state-of-the-art Himatnagar milling facilities house high-capacity continuous ball mills, magnetic air classifiers, and optical sorters engineered for customized sizing across High-Purity Quartz, Soda Feldspar, and Potash Feldspar.
           </p>
         </div>
 
         {/* Facility Primary Banner */}
         <div className="mb-14 rounded-2xl overflow-hidden bg-[var(--bg-surface)] border border-[var(--border-hairline)] shadow-xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 items-center">
-            <div className="lg:col-span-7 relative aspect-[16/10] lg:aspect-auto lg:h-[380px] bg-black/10 overflow-hidden">
-              <img
-                src="/images/hero-mineral.jpg"
-                alt="Amogh Supply Processing Facility"
+            <div className="lg:col-span-7 relative aspect-[16/10] lg:aspect-auto lg:h-[400px] bg-black/10 overflow-hidden">
+              <Image
+                src="/images/processing-facility-hub.jpg"
+                alt="Amogh Minerals Processing Facility Hub"
+                width={800}
+                height={500}
                 className="w-full h-full object-cover"
+                unoptimized={true}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-surface)] via-transparent to-transparent opacity-80 lg:hidden" />
               <div className="absolute top-4 left-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--bg-canvas)]/90 backdrop-blur-md border border-[var(--border-hairline)] text-xs font-mono font-semibold text-[var(--text-pure)]">
@@ -80,7 +83,7 @@ export default function ProcessingUnitsSection() {
                   Integrated Crushing, Milling &amp; Optical Sizing
                 </h3>
                 <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
-                  Equipped with ceramic-lined continuous ball mills that eliminate iron cross-contamination, ensuring pure snow-white brightness and custom grain distributions for quartz surfaces, glass, and vitrified tiles.
+                  Equipped with ceramic-lined continuous ball mills that eliminate iron cross-contamination, multi-deck vibrating grading screens, and high-intensity magnetic separators, ensuring pure snow-white brightness and custom grain distributions for quartz surfaces, glass, and vitrified tiles.
                 </p>
               </div>
 
@@ -98,14 +101,30 @@ export default function ProcessingUnitsSection() {
           </div>
         </div>
 
-        {/* Processing Units Grid (Quartz & Soda Feldspar) */}
+        {/* Processing Units Grid (Quartz & Soda + Potash Feldspar) */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
           
-          {/* QUARTZ PROCESSING UNIT */}
+          {/* UNIT 01: QUARTZ PROCESSING UNIT */}
           <div className="rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-hairline)] p-6 sm:p-8 flex flex-col justify-between shadow-xl relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 rounded-full blur-2xl pointer-events-none" />
 
             <div>
+              {/* Unit Card Image Preview */}
+              <div className="relative w-full h-44 sm:h-52 rounded-xl overflow-hidden mb-5 border border-[var(--border-hairline)]">
+                <Image
+                  src="/images/quartz-processing-unit.jpg"
+                  alt="Quartz Processing & Beneficiation Line"
+                  width={600}
+                  height={350}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  unoptimized={true}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-surface)] via-transparent to-transparent opacity-60" />
+                <div className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[var(--bg-canvas)]/90 backdrop-blur-md border border-[var(--border-hairline)] text-[10px] font-mono font-semibold text-cyan-400">
+                  <span>Ball Mill &amp; Optical Sizing Circuit</span>
+                </div>
+              </div>
+
               <div className="flex items-center justify-between mb-4">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-[var(--bg-surface-elevated)] border border-[var(--border-hairline)] text-xs font-mono font-semibold text-[var(--text-pure)]">
                   <Cpu className="w-3.5 h-3.5 text-cyan-500" />
@@ -158,7 +177,7 @@ export default function ProcessingUnitsSection() {
               <div className="space-y-2 mb-6">
                 <div className="flex items-center gap-2 text-xs text-[var(--text-secondary)]">
                   <CheckCircle2 className="w-3.5 h-3.5 text-cyan-500 shrink-0" />
-                  <span>Custom Cut Lumps &amp; Blocks manufactured to client dimensions</span>
+                  <span>Custom Cut Lumps &amp; Blocks manufactured to client dimensions (25–150 mm)</span>
                 </div>
                 <div className="flex items-center gap-2 text-xs text-[var(--text-secondary)]">
                   <CheckCircle2 className="w-3.5 h-3.5 text-cyan-500 shrink-0" />
@@ -176,33 +195,49 @@ export default function ProcessingUnitsSection() {
             </Link>
           </div>
 
-          {/* SODA FELDSPAR PROCESSING UNIT */}
+          {/* UNIT 02: SODA & POTASH FELDSPAR PROCESSING UNIT */}
           <div className="rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-hairline)] p-6 sm:p-8 flex flex-col justify-between shadow-xl relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-2xl pointer-events-none" />
 
             <div>
+              {/* Unit Card Image Preview */}
+              <div className="relative w-full h-44 sm:h-52 rounded-xl overflow-hidden mb-5 border border-[var(--border-hairline)]">
+                <Image
+                  src="/images/feldspar-processing-unit.jpg"
+                  alt="Soda and Potash Feldspar Processing Unit"
+                  width={600}
+                  height={350}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  unoptimized={true}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-surface)] via-transparent to-transparent opacity-60" />
+                <div className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[var(--bg-canvas)]/90 backdrop-blur-md border border-[var(--border-hairline)] text-[10px] font-mono font-semibold text-emerald-400">
+                  <span>Dual Raymond Mill &amp; Magnetic Sizing Circuit</span>
+                </div>
+              </div>
+
               <div className="flex items-center justify-between mb-4">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-[var(--bg-surface-elevated)] border border-[var(--border-hairline)] text-xs font-mono font-semibold text-[var(--text-pure)]">
                   <Cpu className="w-3.5 h-3.5 text-emerald-500" />
-                  <span>Unit 02: Ceramic Flux Refining</span>
+                  <span>Unit 02: Ceramic Flux &amp; Glaze Refining</span>
                 </div>
-                <span className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 font-semibold">
-                  Na₂O &gt; 10.5%
+                <span className="text-[10px] sm:text-[11px] font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 font-semibold">
+                  Na₂O &gt; 10.5% | K₂O &gt; 12.0%
                 </span>
               </div>
 
               <h3 className="font-display font-bold text-2xl text-[var(--text-pure)] mb-2">
-                Soda Feldspar Processing Unit
+                Soda &amp; Potash Feldspar Processing Unit
               </h3>
               <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed mb-6">
-                Specialized jaw crushing, vibrating screening, and air-swept micro-grinding circuit. Tailored specifically for ceramic vitrification, sanitaryware, and container glass batch compounding.
+                Specialized dual beneficiation lines equipped with heavy-duty jaw crushers, vibrating multi-deck grading screens, dry magnetic separators, and air-swept micro-grinding circuits. Engineered for precision processing of both high-flux Soda Feldspar (for Morbi vitrified tile bodies) and high-viscosity Potash Feldspar (for fine tableware glazes &amp; electrical insulators).
               </p>
 
-              {/* Chemical Properties of Soda Feldspar Table */}
+              {/* Chemical Properties of Soda & Potash Feldspar Table */}
               <div className="mb-6 rounded-xl overflow-hidden border border-[var(--border-hairline)] bg-[var(--bg-surface-elevated)]">
                 <div className="px-4 py-2.5 bg-[var(--bg-canvas)] border-b border-[var(--border-hairline)] flex items-center justify-between">
                   <span className="text-xs font-mono font-semibold text-[var(--text-pure)] uppercase">
-                    Chemical Properties of Soda Feldspar
+                    Chemical Assay: Soda vs. Potash Feldspar
                   </span>
                   <span className="text-[10px] font-mono text-[var(--text-muted)]">NABL Analyzed</span>
                 </div>
@@ -212,14 +247,16 @@ export default function ProcessingUnitsSection() {
                     <thead>
                       <tr className="bg-[var(--bg-surface)] border-b border-[var(--border-hairline)] text-[10px] font-mono uppercase text-[var(--text-muted)]">
                         <th className="py-2.5 px-3">Chemical Formula</th>
-                        <th className="py-2.5 px-3 text-emerald-600 dark:text-emerald-400 font-bold">Typical Range (%)</th>
+                        <th className="py-2.5 px-3 text-emerald-600 dark:text-emerald-400 font-bold">Soda Feldspar (SF-1)</th>
+                        <th className="py-2.5 px-3 text-amber-500 font-bold">Potash Feldspar (PF-1)</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-[var(--border-hairline)] font-mono text-[11px]">
-                      {feldsparSpecs.map((row, idx) => (
+                      {feldsparDualSpecs.map((row, idx) => (
                         <tr key={idx} className="hover:bg-[var(--bg-surface)]/60 transition-colors">
                           <td className="py-2 px-3 font-sans font-medium text-[var(--text-pure)]">{row.formula}</td>
-                          <td className={`py-2 px-3 ${row.highlight ? "text-emerald-600 dark:text-emerald-400 font-bold" : "text-[var(--text-secondary)]"}`}>{row.range}</td>
+                          <td className={`py-2 px-3 ${row.highlightSoda ? "text-emerald-600 dark:text-emerald-400 font-bold" : "text-[var(--text-secondary)]"}`}>{row.soda}</td>
+                          <td className={`py-2 px-3 ${row.highlightPotash ? "text-amber-500 font-bold" : "text-[var(--text-secondary)]"}`}>{row.potash}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -231,11 +268,15 @@ export default function ProcessingUnitsSection() {
               <div className="space-y-2 mb-6">
                 <div className="flex items-center gap-2 text-xs text-[var(--text-secondary)]">
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                  <span>Custom sized lumps (10–120 mm) &amp; ceramic granulates (0.5–3 mm)</span>
+                  <span>Soda Feldspar: High-flux fluxing agent for Morbi vitrified tiles &amp; sanitaryware</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs text-[var(--text-secondary)]">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                  <span>Potash Feldspar: High-viscosity melt for electrical porcelain &amp; bone china glazes</span>
                 </div>
                 <div className="flex items-center gap-2 text-xs text-[var(--text-secondary)]">
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                  <span>200 &amp; 300 mesh fine ceramic powders with L* whiteness ≥ 78%</span>
+                  <span>Custom sizes: 10–120 mm lumps, 0.5–3 mm granulates, and 200/300/400 mesh powders</span>
                 </div>
               </div>
             </div>
@@ -244,7 +285,7 @@ export default function ProcessingUnitsSection() {
               href="/contact?mineral=soda-feldspar"
               className="w-full py-3 px-4 rounded-xl btn-solid-white text-xs uppercase tracking-wider font-semibold flex items-center justify-center gap-2 shadow-sm"
             >
-              <span>Inquire for Feldspar Unit Lots</span>
+              <span>Inquire for Soda &amp; Potash Feldspar Lots</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
@@ -255,4 +296,3 @@ export default function ProcessingUnitsSection() {
     </section>
   );
 }
-
